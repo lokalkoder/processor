@@ -1,0 +1,40 @@
+{
+  "name": "lokal/processor",
+  "description": "Lokal Koder Processor",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "joesama",
+      "email": "joharijumali@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^8.2",
+    "symfony/workflow": "^7.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Lokal\\Processor\\": "src/"
+    },
+    "extra": {
+      "laravel": {
+        "providers": [
+          "Lokal\\Processor\\Provider"
+        ]
+      }
+    },
+    "classmap": [],
+    "files": []
+  },
+  "require-dev": {
+    "pestphp/pest": "^3.3",
+    "mockery/mockery": "^1.6",
+    "fakerphp/faker": "^1.23",
+    "orchestra/testbench": "^9.5"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}
