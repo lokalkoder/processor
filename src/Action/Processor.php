@@ -10,7 +10,7 @@ abstract class Processor
      * @param mixed|null $identity
      * @return mixed
      */
-    abstract public function entity(array $parameters, mixed $identity = null): mixed;
+    abstract protected function entity(array $parameters, mixed $identity = null): mixed;
 
     /**
      * Execute process

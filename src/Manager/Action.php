@@ -13,24 +13,25 @@ final class Action
     /**
      * Initiate Action
      * @param Parameter $parameters
+     * @param Processor $processor
      */
     public function __construct(
-        protected Parameter $parameters
+        protected Parameter $parameters,
+        protected Processor $processor
     ){}
 
     /**
      * Process the request
-     * @param Processor $processor
      * @return array
      */
-    public function process(Processor $processor): array
+    public function process(): array
     {
         $message = $this->parameters->responseMessage();
         $code = null;
 
         try {
             if ($this->isValid()) {
-                $processor->execute($this->parameters);
+                $this->processor->execute($this->parameters);
                 $code = 200;
             }
         } catch (\Exception $exception) {
@@ -38,5 +39,13 @@ final class Action
         }
 
         return (new Response($message, http_response_code($code)))->getResponseMessage();
+    }
+
+    /**
+     * @return mixed|null
+     */
+    public function model(): mixed
+    {
+        return $this->isValid() ? $this->processor->execute($this->parameters) : null;
     }
 }
