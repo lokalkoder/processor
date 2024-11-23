@@ -10,6 +10,8 @@ final class Action
 {
     use HasValidation;
 
+    protected mixed $execution;
+
     /**
      * Initiate Action
      * @param Parameter $parameters
@@ -24,18 +26,16 @@ final class Action
      * Process the request
      * @return array
      */
-    public function process(): array
+    public function response(): array
     {
         $message = $this->parameters->responseMessage();
-        $code = null;
+        $code = 200;
 
         try {
-            if ($this->isValid()) {
-                $this->processor->execute($this->parameters);
-                $code = 200;
-            }
+            $this->process();
         } catch (\Exception $exception) {
             $message = $exception->getMessage();
+            $code = $exception->getCode();
         }
 
         return (new Response($message, http_response_code($code)))->getResponseMessage();
@@ -44,7 +44,7 @@ final class Action
     /**
      * @return mixed|null
      */
-    public function model(): mixed
+    public function process(): mixed
     {
         return $this->isValid() ? $this->processor->execute($this->parameters) : null;
     }

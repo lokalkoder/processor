@@ -23,7 +23,7 @@ trait UseActionProcessor
             $action->validationUsed($this->validator);
         }
 
-        return $action->process();
+        return $action->response();
     }
 
     /**
@@ -39,7 +39,7 @@ trait UseActionProcessor
             $action->validationUsed($this->validator);
         }
 
-        return $action->model();
+        return $action->process();
     }
 
     /**
