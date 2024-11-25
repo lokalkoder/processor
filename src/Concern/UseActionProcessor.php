@@ -4,6 +4,7 @@ namespace Lokal\Processor\Concern;
 
 use Lokal\Processor\Action\Parameter;
 use Lokal\Processor\Action\Processor;
+use Lokal\Processor\Exceptions\ExecutionException;
 use Lokal\Processor\Manager\Action;
 
 trait UseActionProcessor
@@ -30,6 +31,7 @@ trait UseActionProcessor
      * @param Parameter $parameter
      * @param Processor $processor
      * @return mixed
+     * @throws ExecutionException
      */
     public function modelAction(Parameter $parameter, Processor $processor): mixed
     {

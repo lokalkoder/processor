@@ -2,6 +2,8 @@
 
 namespace Lokal\Processor\Action;
 
+use Lokal\Processor\Exceptions\ExecutionException;
+
 abstract class Processor
 {
     /**
@@ -10,15 +12,20 @@ abstract class Processor
      * @param mixed|null $identity
      * @return mixed
      */
-    abstract protected function entity(array $parameters, mixed $identity = null): mixed;
+    abstract protected function saving(array $parameters, mixed $identity = null): mixed;
 
     /**
      * Execute process
      * @param Parameter $parameter
      * @return mixed
+     * @throws ExecutionException
      */
     public function execute(Parameter $parameter): mixed
     {
-        return $this->entity($parameter->mapping(), $parameter->getIdentity());
+        try {
+            return $this->saving($parameter->parameters(), $parameter->getIdentity());
+        } catch (\Exception $exception) {
+            throw new ExecutionException($exception->getMessage(), 500, $exception);
+        }
     }
 }

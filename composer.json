@@ -10,7 +10,6 @@
   ],
   "require": {
     "php": "^8.2",
-    "symfony/workflow": "^7.1"
   },
   "autoload": {
     "psr-4": {

@@ -3,8 +3,8 @@ namespace Lokal\Processor\Manager;
 
 use Lokal\Processor\Action\Parameter;
 use Lokal\Processor\Action\Processor;
-use Lokal\Processor\Action\Response;
 use Lokal\Processor\Concern\HasValidation;
+use Lokal\Processor\Exceptions\ExecutionException;
 
 final class Action
 {
@@ -33,9 +33,9 @@ final class Action
 
         try {
             $this->process();
-        } catch (\Exception $exception) {
+        } catch (\Exception|ExecutionException $exception) {
             $message = $exception->getMessage();
-            $code = $exception->getCode();
+            $code = (int) $exception->getCode();
         }
 
         return (new Response($message, http_response_code($code)))->getResponseMessage();
@@ -43,8 +43,9 @@ final class Action
 
     /**
      * @return mixed|null
+     * @throws ExecutionException
      */
-    public function process(): mixed
+    public function process()
     {
         return $this->isValid() ? $this->processor->execute($this->parameters) : null;
     }
