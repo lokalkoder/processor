@@ -15,15 +15,15 @@
     "psr-4": {
       "Lokal\\Processor\\": "src/"
     },
-    "extra": {
-      "laravel": {
-        "providers": [
-          "Lokal\\Processor\\Provider"
-        ]
-      }
-    },
     "classmap": [],
     "files": []
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Lokal\\Processor\\Provider"
+      ]
+    }
   },
   "require-dev": {
     "pestphp/pest": "^3.3",
